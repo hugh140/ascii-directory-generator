@@ -3,15 +3,17 @@ import Folder from "./components/Folder";
 import "./index.css";
 
 function App() {
-  const [directory, setDirectory] = useState([]);
-  // console.log(directory)
+  const [directory, setDirectory] = useState([
+    { name: "hola", folders: [{ name: "hola" }, { name: "hola" }] },
+  ]);
+  console.log(directory);
 
   function handleNewFolder() {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (newFolderName === null) return;
 
     const newDirectory = [...directory];
-    newDirectory.push({ name: newFolderName });
+    newDirectory.push({ name: newFolderName, folders: [] });
     setDirectory(newDirectory);
   }
 
@@ -35,12 +37,26 @@ function App() {
       </button>
 
       {directory.map((folder, index) => (
-        <Folder
-          key={index}
-          folderName={folder.name}
-          indexFolder={index}
-          removeFolderClick={handleRemoveFolder}
-        ></Folder>
+        <>
+          <Folder
+            key={index}
+            folderName={folder.name}
+            indexFolder={index}
+            removeFolderClick={handleRemoveFolder}
+          ></Folder>
+          <div className="border-l-2">
+            <div className="ms-auto w-[95%]">
+              {folder.folders.map((folder1, index1) => (
+                <Folder
+                  key={index1}
+                  folderName={folder1.name}
+                  indexFolder={index1}
+                  removeFolderClick={handleRemoveFolder}
+                ></Folder>
+              ))}
+            </div>
+          </div>
+        </>
       ))}
 
       {/* <Folder folderName="Hola" />
