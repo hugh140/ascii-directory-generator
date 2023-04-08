@@ -6,8 +6,8 @@ function App() {
   const [directory, setDirectory] = useState([]);
   // console.log(directory)
 
-  function newFolderClick() {
-    const newFolderName = prompt('Ingresar el nombre de la carpeta a crear.')
+  function handleNewFolder() {
+    const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (newFolderName === null) return;
 
     const newDirectory = [...directory];
@@ -15,17 +15,32 @@ function App() {
     setDirectory(newDirectory);
   }
 
+  function handleRemoveFolder(event) {
+    const confirmFolderRemove = confirm("¿Desea eliminar esta carpeta?");
+    if (!confirmFolderRemove) return;
+
+    const folderIndex = event.target.dataset.folderIndex;
+    const newDirectory = [...directory];
+    newDirectory.splice(folderIndex, 1);
+    setDirectory(newDirectory);
+  }
+
   return (
     <>
       <button
-        className="rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200"
-        onClick={newFolderClick}
+        className="my-4 rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200"
+        onClick={handleNewFolder}
       >
         Nueva Carpeta
       </button>
 
       {directory.map((folder, index) => (
-        <Folder key={index} folderName={folder.name}></Folder>
+        <Folder
+          key={index}
+          folderName={folder.name}
+          indexFolder={index}
+          removeFolderClick={handleRemoveFolder}
+        ></Folder>
       ))}
 
       {/* <Folder folderName="Hola" />
