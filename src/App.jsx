@@ -2,19 +2,24 @@ import { useState } from "react";
 import Folder from "./components/Folder";
 import "./index.css";
 
-function App() {
-  const [directory, setDirectory] = useState([
-    { name: "hola", folders: [{ name: "hola" }, { name: "hola" }] },
-  ]);
-  console.log(directory);
+import DirFolders from "./scripts/dirTree";
+const root = new DirFolders("root");
+const folders = [];
 
-  function handleNewFolder() {
+function App() {
+  const [directory, setDirectory] = useState({root});
+
+  const a = root.getAllFolders(folder => folder.index)
+  console.log(a)
+
+  //Creación de nueva carpeta principal
+  function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (newFolderName === null) return;
 
-    const newDirectory = [...directory];
-    newDirectory.push({ name: newFolderName, folders: [] });
-    setDirectory(newDirectory);
+    node = typeof node === "string" ? folders[Number(node)] : node;
+    folders.push(node.add(newFolderName));
+    setDirectory({ ...directory, root });
   }
 
   function handleRemoveFolder(event) {
@@ -31,32 +36,21 @@ function App() {
     <>
       <button
         className="my-4 rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200"
-        onClick={handleNewFolder}
+        onClick={() => handleNewFolder(root)}
       >
         Nueva Carpeta
       </button>
 
-      {directory.map((folder, index) => (
-        <>
-          <Folder
-            key={index}
-            folderName={folder.name}
-            indexFolder={index}
-            removeFolderClick={handleRemoveFolder}
-          ></Folder>
-          <div className="border-l-2">
-            <div className="ms-auto w-[95%]">
-              {folder.folders.map((folder1, index1) => (
-                <Folder
-                  key={index1}
-                  folderName={folder1.name}
-                  indexFolder={index1}
-                  removeFolderClick={handleRemoveFolder}
-                ></Folder>
-              ))}
-            </div>
-          </div>
-        </>
+      {root.getAllFolders(folder => (
+        <Folder
+          key={folder.index}
+          folderName={folder.name}
+          indexFolder={folder.index}
+          removeFolderClick={handleRemoveFolder}
+          newFolderClick={(event) =>
+            handleNewFolder(event.target.dataset.folderIndex)
+          }
+        ></Folder>
       ))}
 
       {/* <Folder folderName="Hola" />

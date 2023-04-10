@@ -1,4 +1,9 @@
-function Folder({ folderName = "Foo Text", indexFolder, removeFolderClick }) {
+function Folder({
+  folderName = "Foo Text",
+  indexFolder,
+  newFolderClick,
+  removeFolderClick,
+}) {
   return (
     <div
       className="relative mx-auto mt-1 rounded-xl border-2
@@ -9,7 +14,9 @@ function Folder({ folderName = "Foo Text", indexFolder, removeFolderClick }) {
         <div className="grid grid-cols-2 gap-2">
           <button
             className="unded-lg top-1/2 w-10 rounded-lg bg-blue-100
-          p-1 text-center text-blue-500 hover:bg-blue-200 "
+          p-1 text-center text-blue-500 hover:bg-blue-200"
+            data-folder-index={indexFolder}
+            onClick={newFolderClick}
           >
             +
           </button>
