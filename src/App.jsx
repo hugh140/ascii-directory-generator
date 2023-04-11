@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Folder from "./components/Folder";
+import Directory from "./components/Directory";
 import "./index.css";
 
 import DirFolders from "./scripts/dirTree";
@@ -7,10 +7,8 @@ const root = new DirFolders("root");
 const folders = [];
 
 function App() {
-  const [directory, setDirectory] = useState({root});
-
-  const a = root.getAllFolders(folder => folder.index)
-  console.log(a)
+  const [directory, setDirectory] = useState({ root });
+  console.log(directory);
 
   //Creación de nueva carpeta principal
   function handleNewFolder(node) {
@@ -27,7 +25,7 @@ function App() {
     if (!confirmFolderRemove) return;
 
     const folderIndex = event.target.dataset.folderIndex;
-    const newDirectory = [...directory];
+    const newDirectory = [...dirTree];
     newDirectory.splice(folderIndex, 1);
     setDirectory(newDirectory);
   }
@@ -41,17 +39,11 @@ function App() {
         Nueva Carpeta
       </button>
 
-      {root.getAllFolders(folder => (
-        <Folder
-          key={folder.index}
-          folderName={folder.name}
-          indexFolder={folder.index}
-          removeFolderClick={handleRemoveFolder}
-          newFolderClick={(event) =>
-            handleNewFolder(event.target.dataset.folderIndex)
-          }
-        ></Folder>
-      ))}
+      <Directory
+        newFolder={handleNewFolder}
+        removeFolder={handleRemoveFolder}
+        dirTree={directory.root.folders}
+      />
 
       {/* <Folder folderName="Hola" />
       <div className="border-l-2">

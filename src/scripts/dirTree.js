@@ -1,4 +1,5 @@
-let currentIndex = 0;
+import Folder from "../components/Folder";
+let currentIndex = -1;
 
 class DirFolders {
   constructor(name, parent = null, folders = []) {
@@ -28,6 +29,6 @@ class DirFolders {
       foldersArray = foldersArray.concat(folder.getAllFolders(callback));
     }
     return foldersArray;
-}
+  }
 }
 export default DirFolders;
