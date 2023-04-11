@@ -25,9 +25,9 @@ function App() {
     if (!confirmFolderRemove) return;
 
     const folderIndex = event.target.dataset.folderIndex;
-    const newDirectory = [...dirTree];
-    newDirectory.splice(folderIndex, 1);
-    setDirectory(newDirectory);
+    folders[folderIndex].parent.remove(folderIndex);
+    folders.splice(folderIndex, 1);
+    setDirectory({ ...directory, root });
   }
 
   return (

@@ -16,9 +16,10 @@ class DirFolders {
     return newFolder;
   }
 
-  remove(name) {
+  remove(folderIndex) {
     this.folders.forEach((child, index) => {
-      if (child.name === name) this.folders.splice(index, 1);
+      console.log(typeof child.index, typeof folderIndex)
+      if (child.index === Number(folderIndex)) this.folders.splice(index, 1);
     });
   }
 
