@@ -1,17 +1,34 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+//icons
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
+
 function Folder({
   folderName = "Foo Text",
   indexFolder,
   newFolderClick,
+  editFolderClick,
   removeFolderClick,
 }) {
   return (
     <div
       className="relative mx-auto mt-1 rounded-xl border-2
-      border-zinc-200 p-2 text-zinc-800"
+      border-zinc-100 p-2 text-zinc-800"
     >
       {folderName}
       <div className="absolute right-3 top-1/2 -translate-y-1/2">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            className="unded-lg top-1/2 w-10 rounded-lg bg-orange-100
+          p-1 text-center text-orange-500 hover:bg-orange-200"
+            data-folder-index={indexFolder}
+            onClick={editFolderClick}
+          >
+            e
+            {/* <FontAwesomeIcon data-folder-index={indexFolder} icon={faPenToSquare} /> */}
+          </button>
           <button
             className="unded-lg top-1/2 w-10 rounded-lg bg-blue-100
           p-1 text-center text-blue-500 hover:bg-blue-200"
@@ -19,6 +36,7 @@ function Folder({
             onClick={newFolderClick}
           >
             +
+            {/* <FontAwesomeIcon data-folder-index={indexFolder} icon={faPlus} /> */}
           </button>
           <button
             className="unded-lg top-1/2 w-10 rounded-lg bg-red-100
@@ -27,6 +45,7 @@ function Folder({
             onClick={removeFolderClick}
           >
             -
+            {/* <FontAwesomeIcon data-folder-index={indexFolder} icon={faMinus} /> */}
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import Folder from "./Folder";
 
-function Directory({ newFolder, removeFolder, dirTree }) {
+function Directory({ newFolder, editFolder, removeFolder, dirTree }) {
   return (
     <>
       {dirTree.map((folder, index) => (
@@ -9,6 +9,7 @@ function Directory({ newFolder, removeFolder, dirTree }) {
             folderName={folder.name}
             indexFolder={folder.index}
             removeFolderClick={removeFolder}
+            editFolderClick={editFolder}
             newFolderClick={(event) =>
               newFolder(event.target.dataset.folderIndex)
             }
@@ -18,6 +19,7 @@ function Directory({ newFolder, removeFolder, dirTree }) {
               {folder.folders ? (
                 <Directory
                   newFolder={newFolder}
+                  editFolder={editFolder}
                   removeFolder={removeFolder}
                   dirTree={folder.folders}
                 />

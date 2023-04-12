@@ -16,20 +16,25 @@ class DirFolders {
     return newFolder;
   }
 
+  edit(name) {
+    this.name = name;
+    return name;
+  }
+
   remove(folderIndex) {
     this.folders.forEach((child, index) => {
-      console.log(typeof child.index, typeof folderIndex)
+      console.log(typeof child.index, typeof folderIndex);
       if (child.index === Number(folderIndex)) this.folders.splice(index, 1);
     });
   }
 
-  getAllFolders(callback) {
-    let foldersArray = [];
-    for (const folder of this.folders) {
-      foldersArray.push(callback(folder));
-      foldersArray = foldersArray.concat(folder.getAllFolders(callback));
-    }
-    return foldersArray;
-  }
+  // getAllFolders(callback) {
+  //   let foldersArray = [];
+  //   for (const folder of this.folders) {
+  //     foldersArray.push(callback(folder));
+  //     foldersArray = foldersArray.concat(folder.getAllFolders(callback));
+  //   }
+  //   return foldersArray;
+  // }
 }
 export default DirFolders;

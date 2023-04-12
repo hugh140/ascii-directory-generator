@@ -8,18 +8,30 @@ const folders = [];
 
 function App() {
   const [directory, setDirectory] = useState({ root });
-  console.log(directory);
+  console.log(root)
 
-  //Creación de nueva carpeta principal
+  //Creating new folder
   function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
-    if (newFolderName === null) return;
+    if (!newFolderName) return;
 
     node = typeof node === "string" ? folders[Number(node)] : node;
     folders.push(node.add(newFolderName));
     setDirectory({ ...directory, root });
   }
 
+  function handleEditFolder(event) {
+    const newFolderName = prompt("Ingresar el nombre de la carpeta a editar.");
+    if (!newFolderName) return;
+    
+    const folderIndex = event.target.dataset.folderIndex;
+    folders[folderIndex].edit(newFolderName);
+    folders.splice(folderIndex, 1);
+    setDirectory({ ...directory, root });
+    
+  }
+
+  //Remove a folder of directory
   function handleRemoveFolder(event) {
     const confirmFolderRemove = confirm("¿Desea eliminar esta carpeta?");
     if (!confirmFolderRemove) return;
@@ -41,6 +53,7 @@ function App() {
 
       <Directory
         newFolder={handleNewFolder}
+        editFolder={handleEditFolder}
         removeFolder={handleRemoveFolder}
         dirTree={directory.root.folders}
       />
