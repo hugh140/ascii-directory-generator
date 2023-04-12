@@ -1,4 +1,5 @@
 import Folder from "./Folder";
+import getFolderIndex from "../scripts/getFolderIndex";
 
 function Directory({ newFolder, editFolder, removeFolder, dirTree }) {
   return (
@@ -10,9 +11,7 @@ function Directory({ newFolder, editFolder, removeFolder, dirTree }) {
             indexFolder={folder.index}
             removeFolderClick={removeFolder}
             editFolderClick={editFolder}
-            newFolderClick={(event) =>
-              newFolder(event.target.dataset.folderIndex)
-            }
+            newFolderClick={(event) => newFolder(getFolderIndex(event.target))}
           ></Folder>
           <div className="border-l-2">
             <div className="ms-auto w-[95%]">

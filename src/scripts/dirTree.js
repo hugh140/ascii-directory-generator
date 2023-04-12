@@ -25,6 +25,7 @@ class DirFolders {
     this.folders.forEach((child, index) => {
       if (child.index === Number(folderIndex)) this.folders.splice(index, 1);
     });
+    currentIndex--;
   }
 
   // getAllFolders(callback) {

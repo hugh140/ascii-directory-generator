@@ -3,6 +3,8 @@ import Directory from "./components/Directory";
 import "./index.css";
 
 import DirFolders from "./scripts/dirTree";
+import getFolderIndex from "./scripts/getFolderIndex";
+
 const root = new DirFolders("root");
 const folders = [];
 
@@ -10,6 +12,7 @@ function App() {
   const [directory, setDirectory] = useState({ root });
 
   function handleNewFolder(node) {
+    console.log(node)
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (!newFolderName) return;
 
@@ -22,7 +25,8 @@ function App() {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a editar.");
     if (!newFolderName) return;
 
-    const folderIndex = event.target.dataset.folderIndex;
+    const folderIndex = getFolderIndex(event.target)
+
     folders[folderIndex].edit(newFolderName);
     setDirectory({ ...directory, root });
   }
@@ -32,7 +36,8 @@ function App() {
     const confirmFolderRemove = confirm("¿Desea eliminar esta carpeta?");
     if (!confirmFolderRemove) return;
 
-    const folderIndex = event.target.dataset.folderIndex;
+    const folderIndex = getFolderIndex(event.target)
+
     folders[folderIndex].parent.remove(folderIndex);
     folders.splice(folderIndex, 1);
     setDirectory({ ...directory, root });
