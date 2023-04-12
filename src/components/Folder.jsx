@@ -17,7 +17,9 @@ function Folder({
       className="relative mx-auto mt-1 rounded-xl border-2
       border-zinc-100 p-2 text-zinc-800"
     >
-      {folderName}
+      <div className="w-3/4">
+        {folderName}
+      </div>
       <div className="absolute right-3 top-1/2 -translate-y-1/2">
         <div className="grid grid-cols-3 gap-2">
           <button

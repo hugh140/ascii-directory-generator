@@ -23,7 +23,6 @@ class DirFolders {
 
   remove(folderIndex) {
     this.folders.forEach((child, index) => {
-      console.log(typeof child.index, typeof folderIndex);
       if (child.index === Number(folderIndex)) this.folders.splice(index, 1);
     });
   }

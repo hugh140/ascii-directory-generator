@@ -8,9 +8,7 @@ const folders = [];
 
 function App() {
   const [directory, setDirectory] = useState({ root });
-  console.log(root)
 
-  //Creating new folder
   function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (!newFolderName) return;
@@ -23,12 +21,10 @@ function App() {
   function handleEditFolder(event) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a editar.");
     if (!newFolderName) return;
-    
+
     const folderIndex = event.target.dataset.folderIndex;
     folders[folderIndex].edit(newFolderName);
-    folders.splice(folderIndex, 1);
     setDirectory({ ...directory, root });
-    
   }
 
   //Remove a folder of directory
@@ -43,39 +39,30 @@ function App() {
   }
 
   return (
-    <>
+    <div className="container mx-auto p-2">
       <button
-        className="my-4 rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200"
+        className="my-4 w-full rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200 sm:w-auto"
         onClick={() => handleNewFolder(root)}
       >
         Nueva Carpeta
       </button>
-
-      <Directory
-        newFolder={handleNewFolder}
-        editFolder={handleEditFolder}
-        removeFolder={handleRemoveFolder}
-        dirTree={directory.root.folders}
-      />
-
-      {/* <Folder folderName="Hola" />
-      <div className="border-l-2">
-        <div className="ms-auto w-[95%]">
-          <Folder />
-          <Folder />
-          <Folder />
-          <div className="border-l-2">
-            <div className="ms-auto w-[95%]">
-              <Folder />
-              <Folder />
-              <Folder />
+      <div className="h-[80vh] overflow-y-scroll border-2 border-x-gray-50 border-y-gray-200 p-2">
+        {!folders.length ? (
+          <div className="grid h-full place-items-center text-gray-500">
+            <div>
+              Agrega una nueva carpeta. <br />
             </div>
           </div>
-        </div>
+        ) : (
+          <Directory
+            newFolder={handleNewFolder}
+            editFolder={handleEditFolder}
+            removeFolder={handleRemoveFolder}
+            dirTree={directory.root.folders}
+          />
+        )}
       </div>
-      <Folder />
-      <Folder /> */}
-    </>
+    </div>
   );
 }
 
