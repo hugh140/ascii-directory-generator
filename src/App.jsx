@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClipboard } from "@fortawesome/free-solid-svg-icons";
+
 import Directory from "./components/Directory";
 import "./index.css";
 
 import DirFolders from "./scripts/dirTree";
 import getFolderIndex from "./scripts/getFolderIndex";
+import copyToClip from "./scripts/copyToClip";
 
 const root = new DirFolders("root");
 const folders = [];
@@ -12,7 +16,6 @@ function App() {
   const [directory, setDirectory] = useState({ root });
 
   function handleNewFolder(node) {
-    console.log(node)
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
     if (!newFolderName) return;
 
@@ -25,7 +28,7 @@ function App() {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a editar.");
     if (!newFolderName) return;
 
-    const folderIndex = getFolderIndex(event.target)
+    const folderIndex = getFolderIndex(event.target);
 
     folders[folderIndex].edit(newFolderName);
     setDirectory({ ...directory, root });
@@ -36,7 +39,7 @@ function App() {
     const confirmFolderRemove = confirm("¿Desea eliminar esta carpeta?");
     if (!confirmFolderRemove) return;
 
-    const folderIndex = getFolderIndex(event.target)
+    const folderIndex = getFolderIndex(event.target);
 
     folders[folderIndex].parent.remove(folderIndex);
     folders.splice(folderIndex, 1);
@@ -51,6 +54,7 @@ function App() {
       >
         Nueva Carpeta
       </button>
+
       <div className="h-[80vh] overflow-y-scroll border-2 border-x-gray-50 border-y-gray-200 p-2">
         {!folders.length ? (
           <div className="grid h-full place-items-center text-gray-500">
@@ -66,6 +70,29 @@ function App() {
             dirTree={directory.root.folders}
           />
         )}
+      </div>
+
+      {/* Botones Generador */}
+      <div className="flex">
+        <button
+          className="mt-6 w-full rounded-lg bg-purple-100 p-3 text-purple-600 hover:bg-purple-200 sm:w-auto"
+          onClick={() => console.log("Generar ASCII")}
+        >
+          Generar Ascii
+        </button>
+        <button
+          className="ms-2 mt-6 w-auto rounded-lg bg-gray-100 p-3 px-10 text-gray-600 hover:bg-gray-200 sm:px-3"
+          onClick={copyToClip}
+        >
+          <FontAwesomeIcon icon={faClipboard} />
+          <span className="ms-2 hidden sm:inline-block">Copiar</span>
+        </button>
+      </div>
+
+      <div className="my-5 w-full border-2 border-gray-200 p-3 text-gray-500">
+        <textarea id="asciiDir" rows="10" cols="50" disabled>
+          hola&#013;chao
+        </textarea>
       </div>
     </div>
   );
