@@ -50,7 +50,7 @@ function DirPanel({ root, folders }) {
         Nueva Carpeta
       </button>
 
-      <div className="h-[80vh] overflow-y-scroll border-2 border-x-gray-50 border-y-gray-200 p-2">
+      <div className="h-[70vh] overflow-y-scroll border-2 border-x-gray-50 border-y-gray-200 p-2">
         {!folders.length ? (
           <div className="grid h-full place-items-center text-gray-500">
             <div>

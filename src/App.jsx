@@ -12,7 +12,7 @@ function App() {
     <div className="container mx-auto p-2">
       
       <DirPanel root={root} folders={folders} />
-      <DirAsciiPanel />
+      <DirAsciiPanel root={root} />
       
     </div>
   );

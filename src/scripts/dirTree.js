@@ -27,14 +27,5 @@ class DirFolders {
     });
     currentIndex--;
   }
-
-  // getAllFolders(callback) {
-  //   let foldersArray = [];
-  //   for (const folder of this.folders) {
-  //     foldersArray.push(callback(folder));
-  //     foldersArray = foldersArray.concat(folder.getAllFolders(callback));
-  //   }
-  //   return foldersArray;
-  // }
 }
 export default DirFolders;
