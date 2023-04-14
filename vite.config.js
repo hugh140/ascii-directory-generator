@@ -7,6 +7,9 @@ export default defineConfig({
   server: {
     port: 4000,
     host: true,
-    https: true
+    https: {
+      key: './myapp-privateKey.key',
+      cert: './myapp.crt'
+    }
   },
 });
