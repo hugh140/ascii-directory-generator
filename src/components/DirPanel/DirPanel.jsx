@@ -41,10 +41,7 @@ function DirPanel({ folders }) {
   }
 
   function generateDir(file) {
-    const info = unzip(file[0]);
-    Object.assign(root, info.root);
-    folders.concat(info.folders);
-    setDirectory({ ...directory, root });
+    unzip(file[0], folders, root, directory, setDirectory);
   }
 
   return (
