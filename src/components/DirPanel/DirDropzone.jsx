@@ -1,31 +1,15 @@
-import { useState } from "react";
 import { useDropzone } from "react-dropzone";
-import JSZip from "jszip";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const zip = new JSZip();
-
-function DirDropzone() {
-  const [zipName, setZipName] = useState('')
+function DirDropzone({ generateZipDir }) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
       "application/zip": [".zip"],
     },
   });
-
-  function unzip(file) {
-    JSZip.loadAsync(file).then((zip) => {
-      zip.forEach((relativePath, zipEntry) => {
-        console.log(zipEntry);
-      });
-    });
-  }
-
-  function generateZipDir() {
-    acceptedFiles.map(unzip);
-  }
 
   return (
     <div className="text-center lg:ms-5 lg:w-1/4">
@@ -47,7 +31,7 @@ function DirDropzone() {
           <button
             className="mt-3 w-full border-2 border-blue-400 p-3 text-gray-500
           hover:bg-blue-50 active:bg-blue-400 active:text-white"
-            onClick={generateZipDir}
+            onClick={() => generateZipDir(acceptedFiles)}
           >
             Generar {acceptedFiles[0].name}
           </button>

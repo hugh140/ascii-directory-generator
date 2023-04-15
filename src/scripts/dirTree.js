@@ -1,4 +1,3 @@
-import Folder from "../components/Folder";
 let currentIndex = -1;
 
 class DirFolders {

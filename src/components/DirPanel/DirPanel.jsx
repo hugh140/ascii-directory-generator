@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { dirStateContext } from "../../App";
 import Directory from "../Directory";
 import DirDropzone from "./DirDropzone";
 
 import getFolderIndex from "../../scripts/getFolderIndex";
+import unzip from "../../scripts/unzipFile";
 
-function DirPanel({ root, folders }) {
-  const [directory, setDirectory] = useState({ root });
+function DirPanel({ folders }) {
+  const { directory, setDirectory, root } = useContext(dirStateContext);
+  console.log(directory);
 
   function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
@@ -13,7 +16,7 @@ function DirPanel({ root, folders }) {
 
     node = typeof node === "string" ? folders[Number(node)] : node;
     folders.push(node.add(newFolderName));
-    setDirectory({ ...directory, root });
+    setDirectory({ ...node });
   }
 
   function handleEditFolder(event) {
@@ -37,6 +40,13 @@ function DirPanel({ root, folders }) {
     setDirectory({ ...directory, root });
   }
 
+  function generateDir(file) {
+    const info = unzip(file[0]);
+    Object.assign(root, info.root);
+    folders.concat(info.folders);
+    setDirectory({ ...directory, root });
+  }
+
   return (
     <>
       <h1 className="mt-5 text-center text-2xl font-semibold uppercase text-blue-950">
@@ -51,7 +61,11 @@ function DirPanel({ root, folders }) {
       </button>
 
       <div className="lg:flex lg:flex-row-reverse">
-        <DirDropzone />
+        <DirDropzone
+          root={root}
+          folders={folders}
+          generateZipDir={generateDir}
+        />
 
         <div className="h-[70vh] w-full overflow-y-scroll border-2 border-x-gray-50 border-y-gray-200 p-2">
           {!folders.length ? (
@@ -65,7 +79,7 @@ function DirPanel({ root, folders }) {
               newFolder={handleNewFolder}
               editFolder={handleEditFolder}
               removeFolder={handleRemoveFolder}
-              dirTree={directory.root.folders}
+              dirTree={root.folders}
             />
           )}
         </div>

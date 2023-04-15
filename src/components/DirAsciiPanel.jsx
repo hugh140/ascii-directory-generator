@@ -46,7 +46,8 @@ function DirAsciiPanel({ root }) {
       </div>
 
       <textarea
-        className="my-5 line-clamp-3 w-full border-2 border-gray-200 bg-white p-3 font-mono text-gray-500"
+        className="my-5 line-clamp-3 w-full border-2 border-gray-200 bg-white p-3 font-mono text-gray-500
+        overflow-y-auto"
         placeholder={`
           Dir Generator Example:
 
@@ -57,7 +58,7 @@ function DirAsciiPanel({ root }) {
         `}
         id="asciiTextarea"
         cols={30}
-        rows={10}
+        rows={15}
         disabled={true}
       ></textarea>
     </>
