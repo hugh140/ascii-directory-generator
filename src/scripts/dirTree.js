@@ -26,5 +26,9 @@ class DirFolders {
     });
     currentIndex--;
   }
+
+  resetIndex() {
+    currentIndex = 0
+  }
 }
 export default DirFolders;

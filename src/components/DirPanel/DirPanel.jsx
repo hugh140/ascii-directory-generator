@@ -1,14 +1,13 @@
-import { useContext } from "react";
-import { dirStateContext } from "../../App";
+import { useState } from "react";
 import Directory from "../Directory";
 import DirDropzone from "./DirDropzone";
 
 import getFolderIndex from "../../scripts/getFolderIndex";
 import unzip from "../../scripts/unzipFile";
+import DirFolders from "../../scripts/dirTree";
 
-function DirPanel({ folders }) {
-  const { directory, setDirectory, root } = useContext(dirStateContext);
-  console.log(directory);
+function DirPanel({ root, folders }) {
+  const [directory, setDirectory] = useState({ root });
 
   function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
@@ -40,6 +39,13 @@ function DirPanel({ folders }) {
     setDirectory({ ...directory, root });
   }
 
+  function handleEmptyDirPanel() {
+    Object.assign(root, new DirFolders("root"));
+    folders.splice(0, folders.length);
+    root.resetIndex();
+    setDirectory({ ...directory, root });
+  }
+
   function generateDir(file) {
     unzip(file[0], folders, root, directory, setDirectory);
   }
@@ -50,12 +56,21 @@ function DirPanel({ folders }) {
         Ascii Dir Generator
       </h1>
 
-      <button
-        className="my-4 w-full rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200 sm:w-auto"
-        onClick={() => handleNewFolder(root)}
-      >
-        Nueva Carpeta
-      </button>
+      <div className="flex">
+        <button
+          className="my-4 w-full rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200 sm:w-auto"
+          onClick={() => handleNewFolder(root)}
+        >
+          Nueva Carpeta
+        </button>
+
+        <button
+          className="my-4 ms-3 w-full rounded-lg bg-red-100 p-3 text-red-600 hover:bg-red-200 sm:w-auto"
+          onClick={handleEmptyDirPanel}
+        >
+          Vaciar Panel
+        </button>
+      </div>
 
       <div className="lg:flex lg:flex-row-reverse">
         <DirDropzone

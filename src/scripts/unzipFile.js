@@ -2,6 +2,9 @@ import JSZip from "jszip";
 import DirFolders from "./dirTree";
 
 function unzip(file, folders, root, directory, setDirectory) {
+  Object.assign(root, new DirFolders("root"));
+  folders.splice(0, folders.length);
+  root.resetIndex();
   JSZip.loadAsync(file).then((zip) => {
     zip.forEach((relativePath, zipEntry) => {
       const fileName = zipEntry.name.split("/");
@@ -20,6 +23,7 @@ function unzip(file, folders, root, directory, setDirectory) {
           folder = folder.add(file);
           folders.push(folder);
         }
+        // console.log(folders.length)
       });
     });
     setDirectory({ ...directory, root });
