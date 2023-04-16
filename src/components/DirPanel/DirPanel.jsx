@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+
 import Directory from "../Directory";
 import DirDropzone from "./DirDropzone";
 
@@ -8,6 +11,7 @@ import DirFolders from "../../scripts/dirTree";
 
 function DirPanel({ root, folders }) {
   const [directory, setDirectory] = useState({ root });
+  const [loading, setLoading] = useState(false);
 
   function handleNewFolder(node) {
     const newFolderName = prompt("Ingresar el nombre de la carpeta a crear.");
@@ -47,7 +51,7 @@ function DirPanel({ root, folders }) {
   }
 
   function generateDir(file) {
-    unzip(file[0], folders, root, directory, setDirectory);
+    unzip(file[0], folders, root, directory, setDirectory, setLoading);
   }
 
   return (
@@ -83,7 +87,14 @@ function DirPanel({ root, folders }) {
           {!folders.length ? (
             <div className="grid h-full w-full place-items-center text-gray-500">
               <div>
-                Agrega una nueva carpeta. <br />
+                {!loading ? (
+                  <div>Agrega una nueva carpeta.</div>
+                ) : (
+                  <div>
+                    <span className="me-2">Loading</span>
+                    <FontAwesomeIcon icon={faSpinner} spin />
+                  </div>
+                )}
               </div>
             </div>
           ) : (
