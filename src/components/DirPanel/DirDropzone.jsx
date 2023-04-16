@@ -22,7 +22,7 @@ function DirDropzone({ generateZipDir }) {
         <input {...getInputProps()} />
         <FontAwesomeIcon className="text-2xl" icon={faPlus} />
         <br />
-        Arrastra archivos comprimidos
+        Select or drop a .zip file with wish directory.
         <br />
       </div>
     </div>

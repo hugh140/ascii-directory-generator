@@ -3,6 +3,6 @@ function copyToClip() {
   const copyText = textarea.value;
 
   if (window.isSecureContext) navigator.clipboard.writeText(copyText);
-  return 'Copiado'  
+  return 'Copied'  
 }
 export default copyToClip;

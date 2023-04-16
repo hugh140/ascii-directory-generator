@@ -56,23 +56,19 @@ function DirPanel({ root, folders }) {
 
   return (
     <>
-      <h1 className="mt-5 text-center text-2xl font-semibold uppercase text-blue-950">
-        Ascii Dir Generator
-      </h1>
-
       <div className="flex">
         <button
           className="my-4 w-full rounded-lg bg-green-100 p-3 text-green-600 hover:bg-green-200 sm:w-auto"
           onClick={() => handleNewFolder(root)}
         >
-          Nueva Carpeta
+          New Folder
         </button>
 
         <button
           className="my-4 ms-3 w-full rounded-lg bg-red-100 p-3 text-red-600 hover:bg-red-200 sm:w-auto"
           onClick={handleEmptyDirPanel}
         >
-          Vaciar Panel
+          Clean Panel
         </button>
       </div>
 
@@ -88,7 +84,7 @@ function DirPanel({ root, folders }) {
             <div className="grid h-full w-full place-items-center text-gray-500">
               <div>
                 {!loading ? (
-                  <div>Agrega una nueva carpeta.</div>
+                  <div>Add a new folder.</div>
                 ) : (
                   <div>
                     <span className="me-2">Loading</span>

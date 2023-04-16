@@ -6,16 +6,18 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import copyToClip from "../scripts/copyToClip";
 import generateAsciiTree from "../scripts/generateAsciiTree";
 
+const initialCopyMessage = "Copy";
+
 function DirAsciiPanel({ root }) {
   const [copyButton, setCopyButton] = useState({
     icon: faClipboard,
-    message: "Copiar",
+    message: initialCopyMessage,
   });
 
   function copyButtonMessage() {
     setCopyButton({ icon: faCheck, message: copyToClip() });
     setTimeout(
-      () => setCopyButton({ icon: faClipboard, message: "Copiar" }),
+      () => setCopyButton({ icon: faClipboard, message: initialCopyMessage }),
       1500
     );
   }
@@ -32,7 +34,7 @@ function DirAsciiPanel({ root }) {
           className="mt-6 w-full rounded-lg bg-purple-100 p-3 text-purple-600 hover:bg-purple-200 sm:w-auto"
           onClick={generateAscii}
         >
-          Generar Ascii
+          Generate Ascii Tree
         </button>
         <button
           className="ms-2 mt-6 w-auto rounded-lg bg-gray-100 p-3 px-10 text-gray-600 hover:bg-gray-200 sm:px-3"
@@ -46,8 +48,8 @@ function DirAsciiPanel({ root }) {
       </div>
 
       <textarea
-        className="my-5 line-clamp-3 w-full border-2 border-gray-200 bg-white p-3 font-mono text-gray-500
-        overflow-y-auto"
+        className="my-5 line-clamp-3 w-full overflow-y-auto border-2 border-gray-200 bg-white p-3 font-mono
+        text-gray-500"
         placeholder={`
           Dir Generator Example:
 
